@@ -171,7 +171,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         // When clicked, lower pose detection score threshold floor
         fragmentCameraBinding.bottomSheetLayout.detectionThresholdMinus.setOnClickListener {
-            if (poseLandmarkerHelper.minPoseDetectionConfidence >= 0.2) {
+            if (this::poseLandmarkerHelper.isInitialized && poseLandmarkerHelper.minPoseDetectionConfidence >= 0.2) {
                 poseLandmarkerHelper.minPoseDetectionConfidence -= 0.1f
                 updateControlsUi()
             }
@@ -179,7 +179,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         // When clicked, raise pose detection score threshold floor
         fragmentCameraBinding.bottomSheetLayout.detectionThresholdPlus.setOnClickListener {
-            if (poseLandmarkerHelper.minPoseDetectionConfidence <= 0.8) {
+            if (this::poseLandmarkerHelper.isInitialized && poseLandmarkerHelper.minPoseDetectionConfidence <= 0.8) {
                 poseLandmarkerHelper.minPoseDetectionConfidence += 0.1f
                 updateControlsUi()
             }
@@ -187,7 +187,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         // When clicked, lower pose tracking score threshold floor
         fragmentCameraBinding.bottomSheetLayout.trackingThresholdMinus.setOnClickListener {
-            if (poseLandmarkerHelper.minPoseTrackingConfidence >= 0.2) {
+            if (this::poseLandmarkerHelper.isInitialized && poseLandmarkerHelper.minPoseTrackingConfidence >= 0.2) {
                 poseLandmarkerHelper.minPoseTrackingConfidence -= 0.1f
                 updateControlsUi()
             }
@@ -195,7 +195,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         // When clicked, raise pose tracking score threshold floor
         fragmentCameraBinding.bottomSheetLayout.trackingThresholdPlus.setOnClickListener {
-            if (poseLandmarkerHelper.minPoseTrackingConfidence <= 0.8) {
+            if (this::poseLandmarkerHelper.isInitialized && poseLandmarkerHelper.minPoseTrackingConfidence <= 0.8) {
                 poseLandmarkerHelper.minPoseTrackingConfidence += 0.1f
                 updateControlsUi()
             }
@@ -203,7 +203,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         // When clicked, lower pose presence score threshold floor
         fragmentCameraBinding.bottomSheetLayout.presenceThresholdMinus.setOnClickListener {
-            if (poseLandmarkerHelper.minPosePresenceConfidence >= 0.2) {
+            if (this::poseLandmarkerHelper.isInitialized && poseLandmarkerHelper.minPosePresenceConfidence >= 0.2) {
                 poseLandmarkerHelper.minPosePresenceConfidence -= 0.1f
                 updateControlsUi()
             }
@@ -211,7 +211,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         // When clicked, raise pose presence score threshold floor
         fragmentCameraBinding.bottomSheetLayout.presenceThresholdPlus.setOnClickListener {
-            if (poseLandmarkerHelper.minPosePresenceConfidence <= 0.8) {
+            if (this::poseLandmarkerHelper.isInitialized && poseLandmarkerHelper.minPosePresenceConfidence <= 0.8) {
                 poseLandmarkerHelper.minPosePresenceConfidence += 0.1f
                 updateControlsUi()
             }
@@ -253,8 +253,12 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     p2: Int,
                     p3: Long
                 ) {
-                    poseLandmarkerHelper.currentModel = p2
-                    updateControlsUi()
+                    try {
+                        poseLandmarkerHelper.currentModel = p2
+                        updateControlsUi()
+                    } catch(e: UninitializedPropertyAccessException) {
+                        Log.e(TAG, "PoseLandmarkerHelper has not been initialized yet.")
+                    }
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {

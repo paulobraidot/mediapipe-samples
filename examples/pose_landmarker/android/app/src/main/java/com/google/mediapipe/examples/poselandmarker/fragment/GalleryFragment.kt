@@ -213,8 +213,12 @@ class GalleryFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     p2: Int,
                     p3: Long
                 ) {
-                    poseLandmarkerHelper.currentModel = p2
-                    updateControlsUi()
+                    try {
+                        poseLandmarkerHelper.currentModel = p2
+                        updateControlsUi()
+                    } catch(e: UninitializedPropertyAccessException) {
+                        Log.e(TAG, "PoseLandmarkerHelper has not been initialized yet.")
+                    }
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
