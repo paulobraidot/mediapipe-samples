@@ -1,4 +1,4 @@
-name: holistic_landmarker android
+name: Android CI
 
 on:
   push:
@@ -23,18 +23,18 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-        working-directory: examples/holistic_landmarker/android
+        working-directory: examples/mediapipe_samples/android
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon
-        working-directory: examples/holistic_landmarker/android
+        working-directory: examples/mediapipe_samples/android
 
       - name: Prepare APK for upload
-        run: cp app/build/outputs/apk/debug/app-debug.apk holistic_landmarker.apk
-        working-directory: examples/holistic_landmarker/android
+        run: cp app/build/outputs/apk/debug/app-debug.apk mediapipe-samples.apk
+        working-directory: examples/mediapipe_samples/android
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: holistic_landmarker.apk
-          path: examples/holistic_landmarker/android/holistic_landmarker.apk
+          name: mediapipe-samples.apk
+          path: examples/mediapipe_samples/android/mediapipe-samples.apk
