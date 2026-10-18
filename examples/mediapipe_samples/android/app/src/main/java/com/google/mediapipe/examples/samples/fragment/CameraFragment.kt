@@ -149,6 +149,15 @@ class CameraFragment : Fragment(), HolisticLandmarkerHelper.LandmarkerListener {
             setUpCamera()
         }
 
+        fragmentCameraBinding.btnSwitchCamera.setOnClickListener {
+            cameraFacing = if (cameraFacing == CameraSelector.LENS_FACING_FRONT) {
+                CameraSelector.LENS_FACING_BACK
+            } else {
+                CameraSelector.LENS_FACING_FRONT
+            }
+            bindCameraUseCases()
+        }
+
         // Create the HolisticLandmarkerHelper that will handle the inference
         backgroundExecutor.execute {
             holisticLandmarkerHelper = HolisticLandmarkerHelper(

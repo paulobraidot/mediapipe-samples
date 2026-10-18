@@ -30,6 +30,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageButton
+        android:id="@+id/btn_switch_camera"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_plus"
+        android:backgroundTint="#80000000"
+        android:contentDescription="Switch Camera"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_camera_switch"
+        app:tint="@android:color/white" />
+
     <include
         android:id="@+id/bottom_sheet_layout"
         layout="@layout/info_bottom_sheet" />
