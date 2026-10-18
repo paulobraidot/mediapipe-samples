@@ -33,6 +33,7 @@ import com.google.mediapipe.tasks.vision.holisticlandmarker.HolisticLandmarker
 import com.google.mediapipe.tasks.vision.holisticlandmarker.HolisticLandmarkerResult
 
 class HolisticLandmarkerHelper(
+    var modelAssetPath: String = MP_HOLISTIC_LANDMARKER_TASK,
     var minFaceDetectionConfidence: Float = DEFAULT_FACE_DETECTION_CONFIDENCE,
     var minFacePresenceConfidence: Float = DEFAULT_FACE_PRESENCE_CONFIDENCE,
     var minPoseDetectionConfidence: Float = DEFAULT_POSE_DETECTION_CONFIDENCE,
@@ -82,7 +83,7 @@ class HolisticLandmarkerHelper(
             }
         }
 
-        baseOptionBuilder.setModelAssetPath(MP_HOLISTIC_LANDMARKER_TASK)
+        baseOptionBuilder.setModelAssetPath(modelAssetPath)
 
         // Check if runningMode is consistent with holisticLandmarkerHelperListener
         when (runningMode) {
@@ -348,7 +349,7 @@ class HolisticLandmarkerHelper(
 
     companion object {
         const val TAG = "HolisticLandmarkerHelper"
-        private const val MP_HOLISTIC_LANDMARKER_TASK = "holistic_landmarker.task"
+        const val MP_HOLISTIC_LANDMARKER_TASK = "holistic_landmarker.task"
 
         const val DELEGATE_CPU = 0
         const val DELEGATE_GPU = 1

@@ -18,9 +18,20 @@ package com.google.mediapipe.examples.samples
 import androidx.lifecycle.ViewModel
 
 /**
- * This ViewModel is used to store holistic landmarker helper settings
+ * This ViewModel is used to store holistic landmarker helper settings and selected example
  */
 class MainViewModel : ViewModel() {
+
+    private var _selectedModelPath: String = "holistic_landmarker.task"
+    private var _selectedModelTitle: String = "Holistic Landmarker"
+
+    val selectedModelPath: String get() = _selectedModelPath
+    val selectedModelTitle: String get() = _selectedModelTitle
+
+    fun setSelectedModel(path: String, title: String) {
+        _selectedModelPath = path
+        _selectedModelTitle = title
+    }
 
     private var _delegate: Int = HolisticLandmarkerHelper.DELEGATE_CPU
     private var _minPoseDetectionConfidence: Float =

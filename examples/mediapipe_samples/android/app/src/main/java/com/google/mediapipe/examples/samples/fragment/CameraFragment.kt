@@ -50,7 +50,7 @@ import java.util.concurrent.TimeUnit
 class CameraFragment : Fragment(), HolisticLandmarkerHelper.LandmarkerListener {
 
     companion object {
-        private const val TAG = "Holistic Landmarker"
+        private const val TAG = "CameraFragment"
     }
 
     private var _fragmentCameraBinding: FragmentCameraBinding? = null
@@ -158,9 +158,10 @@ class CameraFragment : Fragment(), HolisticLandmarkerHelper.LandmarkerListener {
             bindCameraUseCases()
         }
 
-        // Create the HolisticLandmarkerHelper that will handle the inference
+        // Create the HolisticLandmarkerHelper that will handle the inference for the selected example
         backgroundExecutor.execute {
             holisticLandmarkerHelper = HolisticLandmarkerHelper(
+                modelAssetPath = viewModel.selectedModelPath,
                 context = requireContext(),
                 runningMode = RunningMode.LIVE_STREAM,
                 minPoseDetectionConfidence = viewModel.currentMinPoseDetectionConfidence,
